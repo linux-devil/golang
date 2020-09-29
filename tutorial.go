@@ -26,6 +26,53 @@ func variadicSums(nums ...int) {
 	fmt.Println(total)
 }
 
+func intSeq() func() int {
+	i := 0
+	return func() int {
+		i++
+		return i
+	}
+}
+
+func fact(n int) int {
+	if n == 0 {
+		return 1
+	}
+	return n * fact(n-1)
+}
+
+func zeroval(ival int) {
+	ival = 0
+}
+
+func zeroptr(iptr *int) {
+	*iptr = 0
+}
+
+type person struct {
+	name string
+	age  int
+}
+
+func newPerson(name string) *person {
+	p := person{name: name}
+	p.age = 42
+
+	return &p
+}
+
+type rect struct {
+	width, height int
+}
+
+func (r *rect) area() int {
+	return r.width * r.height
+}
+
+func (r *rect) perim() int {
+	return 2*r.width + 2*r.height
+}
+
 func main() {
 	var a uint8
 	a = 255
@@ -33,7 +80,7 @@ func main() {
 	b = true
 	fmt.Println("harshit")
 	fmt.Println(a, b)
-	i := 10
+	i := 3
 	for i > 0 {
 		fmt.Println(i)
 		time.Sleep(time.Second)
@@ -70,5 +117,41 @@ func main() {
 	variadicSums(nums...)
 
 	// closures
+	nextInt := intSeq()
+	fmt.Println(nextInt())
+	fmt.Println(nextInt())
+	fmt.Println(nextInt())
 
+	// recursion
+	fmt.Println(fact(7))
+
+	//pointers
+
+	pnt := 1
+	fmt.Println("initial : ", pnt)
+
+	zeroval(pnt)
+	fmt.Println("zeroval : ", pnt)
+
+	zeroptr(&pnt)
+	fmt.Println("zeroptr : ", pnt)
+
+	//struct
+
+	s := person{name: "Sean", age: 42}
+	fmt.Println(s.name)
+
+	sp := &s
+	fmt.Println(sp.age)
+
+	sp.age = 55
+	fmt.Println(sp.age)
+
+	fmt.Println(newPerson("harshit"))
+
+	// methods defined on struct type
+
+	r := rect{width: 10, height: 5}
+	fmt.Println("area ", r.area())
+	fmt.Println("perim", r.perim())
 }
