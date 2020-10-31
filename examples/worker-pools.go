@@ -5,6 +5,7 @@ import (
 	"time"
 )
 
+// Receive work on the jobs channel and return results
 func worker(id int, jobs <-chan int, results chan<- int) {
 	for j := range jobs {
 		fmt.Println("worker", id, "started job", j)
